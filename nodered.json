@@ -1,0 +1,187 @@
+[
+    {
+        "id": "0dd788cfc37c36c3",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "0afbbafdd7afde7d",
+        "type": "serial in",
+        "z": "0dd788cfc37c36c3",
+        "name": "Input",
+        "serial": "e50d6ec417ee204a",
+        "x": 3270,
+        "y": 4200,
+        "wires": [
+            [
+                "961f9b6b540ff52c"
+            ]
+        ]
+    },
+    {
+        "id": "961f9b6b540ff52c",
+        "type": "json",
+        "z": "0dd788cfc37c36c3",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 3410,
+        "y": 4200,
+        "wires": [
+            [
+                "b6a364c6a4f45726"
+            ]
+        ]
+    },
+    {
+        "id": "b6a364c6a4f45726",
+        "type": "debug",
+        "z": "0dd788cfc37c36c3",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3560,
+        "y": 4200,
+        "wires": []
+    },
+    {
+        "id": "037a2b1b065f0b38",
+        "type": "serial in",
+        "z": "0dd788cfc37c36c3",
+        "name": "",
+        "serial": "e50d6ec417ee204a",
+        "x": 310,
+        "y": 460,
+        "wires": [
+            [
+                "cbeb7526a5aa4d38"
+            ]
+        ]
+    },
+    {
+        "id": "97f6a9287c8ee13f",
+        "type": "mqtt out",
+        "z": "0dd788cfc37c36c3",
+        "name": "Tago Output",
+        "topic": "tago/data/post",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c040508a5b4b8b7d",
+        "x": 870,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "fd4829e7fc424960",
+        "type": "function",
+        "z": "0dd788cfc37c36c3",
+        "name": "Conversão",
+        "func": "var state = {payload: \n                        [{\n                            \"variable\": \"State\",\n                            \"value\": msg.payload.state\n                        },\n                        {\n                            \"variable\": \"Pedestrians\",\n                            \"value\": msg.payload.pedestrianCount\n                        },\n                        {\n                            \"variable\": \"cm\",\n                            \"value\": msg.payload.distance\n                        }]\n            };\nreturn state;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 460,
+        "wires": [
+            [
+                "97f6a9287c8ee13f",
+                "ab6b78749d3945a0"
+            ]
+        ]
+    },
+    {
+        "id": "ab6b78749d3945a0",
+        "type": "debug",
+        "z": "0dd788cfc37c36c3",
+        "name": "debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 850,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "cbeb7526a5aa4d38",
+        "type": "json",
+        "z": "0dd788cfc37c36c3",
+        "name": "",
+        "property": "payload.pedestrianCount",
+        "action": "",
+        "pretty": false,
+        "x": 490,
+        "y": 460,
+        "wires": [
+            [
+                "fd4829e7fc424960"
+            ]
+        ]
+    },
+    {
+        "id": "e50d6ec417ee204a",
+        "type": "serial-port",
+        "serialport": "COM4",
+        "serialbaud": "9600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "c040508a5b4b8b7d",
+        "type": "mqtt-broker",
+        "name": "Tago",
+        "broker": "mqtt.tago.io",
+        "port": "1883",
+        "clientid": "Sprint 3",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
